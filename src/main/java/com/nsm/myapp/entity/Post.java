@@ -23,6 +23,7 @@ public class Post {
     private String content;
 
     private long createdTime;
+    private String creatorName;
 
     @Column(columnDefinition = "LONGTEXT")
     private String image;

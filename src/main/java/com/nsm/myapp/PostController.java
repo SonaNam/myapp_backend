@@ -29,15 +29,15 @@ public class PostController {
 
     }
 
-    @GetMapping(value = "/paging")
-    public Page<Post> getPostsPaging(@RequestParam int page, @RequestParam int size) {
-        System.out.println(page + "1");
-        System.out.println(size + "1");
-
-        Sort sort = Sort.by("no").descending();
-        PageRequest pageRequest = PageRequest.of(page, size, sort);
-        return repo.findAll(pageRequest);
-    }
+//    @GetMapping(value = "/paging")
+//    public Page<Post> getPostsPaging(@RequestParam int page, @RequestParam int size) {
+//        System.out.println(page + "1");
+//        System.out.println(size + "1");
+//
+//        Sort sort = Sort.by("no").descending();
+//        PageRequest pageRequest = PageRequest.of(page, size, sort);
+//        return repo.findAll(pageRequest);
+//    }
 
     @PostMapping (value = "/addPost")
     public ResponseEntity<Map<String, Object>> addPost(@RequestBody Post post) {
@@ -61,12 +61,13 @@ public class PostController {
 
 
         return ResponseEntity.ok().build(); //
+
     }
 
-    //삭제 ....? 작성자맞는지 확인하고 지워야하지않나
-    @DeleteMapping(value = "/{no}")
-    public ResponseEntity removePost(@PathVariable long no) {
-        System.out.println(no);
+
+    @DeleteMapping(value = "/removePost")
+    public ResponseEntity removePost(@RequestParam long no) {
+        System.out.println(no + "---------------------------");
 
         Optional<Post> post = repo.findPostByNo(no);
 
@@ -81,7 +82,7 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PutMapping(value = "/{no}")
+    @PutMapping(value = "/modifyPost")
     public ResponseEntity modifyPost(@PathVariable long no, @RequestBody PostModifyRequest post) {
         System.out.println(no);
         System.out.println(post);

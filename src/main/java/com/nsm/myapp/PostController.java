@@ -5,17 +5,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.nsm.myapp.repository.PostRepository;
 import com.nsm.myapp.request.PostModifyRequest;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 import java.util.*;
 
 @RestController
 @RequestMapping(value = "/posts")
+
 
 public class PostController {
     @Autowired
@@ -29,15 +32,15 @@ public class PostController {
 
     }
 
-//    @GetMapping(value = "/paging")
-//    public Page<Post> getPostsPaging(@RequestParam int page, @RequestParam int size) {
-//        System.out.println(page + "1");
-//        System.out.println(size + "1");
-//
-//        Sort sort = Sort.by("no").descending();
-//        PageRequest pageRequest = PageRequest.of(page, size, sort);
-//        return repo.findAll(pageRequest);
-//    }
+    @GetMapping(value = "/paging")
+    public Page<Post> getPostsPaging(@RequestParam int page, @RequestParam int size) {
+        System.out.println(page + "1");
+        System.out.println(size + "1");
+
+        Sort sort = Sort.by("no").descending();
+        PageRequest pageRequest = PageRequest.of(page, size, sort);
+        return repo.findAll(pageRequest);
+    }
 
     @PostMapping (value = "/addPost")
     public ResponseEntity<Map<String, Object>> addPost(@RequestBody Post post) {
@@ -83,7 +86,7 @@ public class PostController {
     }
 
     @PutMapping(value = "/modifyPost")
-    public ResponseEntity modifyPost(@PathVariable long no, @RequestBody PostModifyRequest post) {
+    public ResponseEntity modifyPost(@RequestParam long no, @RequestBody PostModifyRequest post) {
         System.out.println(no);
         System.out.println(post);
 

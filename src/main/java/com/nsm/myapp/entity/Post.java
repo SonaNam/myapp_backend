@@ -28,7 +28,5 @@ public class Post {
     @Column(columnDefinition = "LONGTEXT")
     private String image;
 
-    public enum BoardType {
-
-    }
+    private String boardValue;
 }

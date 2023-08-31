@@ -20,6 +20,9 @@ public interface PostRepository extends JpaRepository <Post,Long>{
         //게시물조회 , 게시물을 옵셔널로 감싸서반환 ,존재하지않으면 .empty() 반환
     Optional<Post> findPostByNo(Long no);
 
+    List<Post> findByBoardValue(String boardValue);
+
+
 //    Page<Post> findByCreatorNameContains(String query, PageRequest pageRequest);
     //작성자이름에 특정문자열을 포함하는 게시물들을 페이징된 형태로 조회반환
 //    Page<Post> findByCreatorNameContains(String creatorName, Pageable pageable);

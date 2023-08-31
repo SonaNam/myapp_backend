@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @RestController
 @RequestMapping(value = "/posts")
 
@@ -25,9 +27,11 @@ public class PostController {
     PostRepository repo;
 
 
-    @GetMapping (value = "/getPost")
-    public List<Post> getPostList() {
-        List<Post> list = repo.findPostSortByNo();
+    @GetMapping
+    public List<Post> getPostList(@RequestParam String post) {
+        System.out.println(post + "-------------------------------------");
+//        List<Post> list = repo.findPostSortByNo();
+        List<Post> list = repo.findByBoardValue(post);
         return list;
 
     }
@@ -42,7 +46,7 @@ public class PostController {
         return repo.findAll(pageRequest);
     }
 
-    @PostMapping (value = "/addPost")
+    @PostMapping
     public ResponseEntity<Map<String, Object>> addPost(@RequestBody Post post) {
         System.out.println(post + "-------------------------------------------------");
         post.setCreatorName("매니저");

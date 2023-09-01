@@ -1,6 +1,7 @@
 package com.nsm.myapp;
 
 import com.nsm.myapp.entity.Post;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.*;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
-
+@Tag(name ="애견 커뮤니티")
 @RestController
 @RequestMapping(value = "/posts")
 

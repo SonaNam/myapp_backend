@@ -3,6 +3,7 @@ package com.nsm.myapp;
 import com.nsm.myapp.entity.Post;
 import com.nsm.myapp.repository.PostRepository;
 import com.nsm.myapp.request.PostModifyRequest;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,6 +33,7 @@ public class PostController {
     }
 
     @GetMapping(value = "/paging")
+    @Operation(summary = "게시물페이징")
     public Page<Post> getPostsPaging(@RequestParam String post, @RequestParam String creatorName, @RequestParam int page, @RequestParam int size) {
         System.out.println(page + "1");
         System.out.println(size + "1");
@@ -41,7 +43,8 @@ public class PostController {
         return repo.findByBoardValueAndCreatorName(post,creatorName,pageRequest);
     }
 
-    @PostMapping
+    @PostMapping(value = "/addPost")
+    @Operation(summary = "게시물작성")
     public ResponseEntity<Map<String, Object>> addPost(@RequestBody Post post) {
         System.out.println(post + "-------------------------------------------------");
         post.setCreatorName("매니저");
@@ -68,6 +71,7 @@ public class PostController {
 
 
     @DeleteMapping(value = "/removePost")
+    @Operation(summary = "게시물삭제")
     public ResponseEntity removePost(@RequestParam long no) {
         System.out.println(no + "---------------------------");
 
@@ -85,6 +89,7 @@ public class PostController {
     }
 
     @PutMapping(value = "/modifyPost")
+    @Operation(summary = "게시물수정")
     public ResponseEntity modifyPost(@RequestParam long no, @RequestBody PostModifyRequest post) {
         System.out.println(no);
         System.out.println(post);

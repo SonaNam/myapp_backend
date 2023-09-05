@@ -2,7 +2,6 @@ package com.nsm.myapp.repository;
 
 import com.nsm.myapp.entity.Post;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,6 +20,20 @@ public interface PostRepository extends JpaRepository <Post,Long>{
     Optional<Post> findPostByNo(Long no);
 
     List<Post> findByBoardValue(String boardValue);
+
+    Page<Post> findByBoardValueAndCreatorName(String boardValue, String creatorName, Pageable pageable);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //    Page<Post> findByCreatorNameContains(String query, PageRequest pageRequest);

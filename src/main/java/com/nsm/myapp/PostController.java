@@ -1,31 +1,25 @@
 package com.nsm.myapp;
 
 import com.nsm.myapp.entity.Post;
+import com.nsm.myapp.repository.PostRepository;
+import com.nsm.myapp.request.PostModifyRequest;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.nsm.myapp.repository.PostRepository;
-import com.nsm.myapp.request.PostModifyRequest;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 import java.util.*;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 @Tag(name ="애견 커뮤니티")
 @RestController
 @RequestMapping(value = "/posts")
-
-
 public class PostController {
     @Autowired
     PostRepository repo;
+
 
 
     @GetMapping
@@ -38,13 +32,13 @@ public class PostController {
     }
 
     @GetMapping(value = "/paging")
-    public Page<Post> getPostsPaging(@RequestParam int page, @RequestParam int size) {
+    public Page<Post> getPostsPaging(@RequestParam String post, @RequestParam String creatorName, @RequestParam int page, @RequestParam int size) {
         System.out.println(page + "1");
         System.out.println(size + "1");
 
         Sort sort = Sort.by("no").descending();
         PageRequest pageRequest = PageRequest.of(page, size, sort);
-        return repo.findAll(pageRequest);
+        return repo.findByBoardValueAndCreatorName(post,creatorName,pageRequest);
     }
 
     @PostMapping

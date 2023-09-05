@@ -29,4 +29,5 @@ public class Post {
     private String image;
 
     private String boardValue;
+
 }
